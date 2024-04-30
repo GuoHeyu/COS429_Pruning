@@ -214,7 +214,7 @@ def main(config):
         testloader = torch.utils.data.DataLoader(testset, config.batch_size, False, num_workers=config.num_workers, pin_memory=True, drop_last=True, sampler=test_sampler)
 
     hess_data = []
-    if config.dataset == 'imagenet' or config.dataset == 'cinic-10':
+    if config.dataset == 'imagenet' or config.dataset == 'cinic-10' or config.dataset == 'tiny_imagenet':
         hessianloader = get_hessianloader(config.dataset, 64)
         num_batch = config.hessian_batch_size // 64
         i = 0
@@ -311,7 +311,7 @@ def main(config):
         logger.info(f"Total Flops: {remained_flops}")
 
         test_loss_pruned, test_acc_pruned, top5_acc_pruned = pruner.test_model(testloader, criterion, device)
-        if config.dataset != 'imagenet' and config.dataset != 'cinic-10':
+        if config.dataset != 'imagenet' and config.dataset != 'cinic-10' and config.dataset != 'tiny_imagenet':
             time_loader = get_hessianloader(config.dataset, 1)
             run_time = pruner.speed_model(time_loader, criterion, device)
             logger.info(f"Total Run Time: {run_time}")

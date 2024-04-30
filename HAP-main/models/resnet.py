@@ -180,6 +180,8 @@ def resnet(depth=32, dataset='cifar10'):
         num_classes = 10
     elif dataset == 'cifar100':
         num_classes = 100
+    elif dataset == 'tiny_imagenet':
+            num_classes = 200
     elif dataset == 'imagenet':
         num_classes = 1000
     else:

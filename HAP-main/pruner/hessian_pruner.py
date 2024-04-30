@@ -73,7 +73,7 @@ class HessianPruner:
             self.prune_ratio = prune_ratio # use for some special case, particularly slq_full, slq_layer
             self._prepare_model()
             self.init_step()
-            if self.config.dataset == 'imagenet' or self.config.dataset == 'cinic-10':
+            if self.config.dataset == 'imagenet' or self.config.dataset == 'cinic-10' or self.config.dataset == "tiny_imagenet":
                 is_loader = True
             self._compute_hessian_importance(dataloader, criterion, device, is_loader, n_v=n_v)
 
@@ -351,7 +351,7 @@ class HessianPruner:
                             int(nepochs * 0.5): learning_rate * 0.1,
                             int(nepochs * 0.75): learning_rate * 0.01}
 
-            elif self.config.dataset == "imagenet" or self.config.dataset == "cinic-10":
+            elif self.config.dataset == "imagenet" or self.config.dataset == "cinic-10" or self.config.dataset == "tiny_imagenet":
                 lr_schedule = {0 : learning_rate,
                    30: learning_rate * 0.1,
                    60: learning_rate * 0.01}

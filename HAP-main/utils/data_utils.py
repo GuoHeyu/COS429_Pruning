@@ -106,12 +106,12 @@ def get_dataloader(dataset, train_batch_size, test_batch_size, num_workers=32, r
         testset = torchvision.datasets.CIFAR100(root=root, train=False, download=False, transform=transform_test)
 
     if dataset == 'cinic-10':
-        trainset = torchvision.datasets.ImageFolder(root + '/cinic-10/trainval', transform=transform_train)
-        testset = torchvision.datasets.ImageFolder(root + '/cinic-10/test', transform=transform_test)
+        trainset = torchvision.datasets.ImageFolder(root + '/cinic-10/train', transform=transform_train)
+        testset = torchvision.datasets.ImageFolder(root + '/cinic-10/val', transform=transform_test)
 
     if dataset == 'tiny_imagenet':
-        trainset = torchvision.datasets.ImageFolder(root + '/tiny_imagenet/train', transform=transform_train)
-        testset = torchvision.datasets.ImageFolder(root + '/tiny_imagenet/val', transform=transform_test)
+        trainset = torchvision.datasets.ImageFolder(root + '/tiny-imagenet-200/train', transform=transform_train)
+        testset = torchvision.datasets.ImageFolder(root + '/tiny-imagenet-200/val', transform=transform_test)
 
     if dataset == 'imagenet' or dataset == 'imagenet_vgg':
         root = "../data/"
@@ -147,12 +147,17 @@ def get_hessianloader(dataset, hessian_batch_size):
                 batch_size=hessian_batch_size, shuffle=False)
     elif dataset == 'cinic-10':
         transform_train, transform_test = get_transforms(dataset)
-        trainset = torchvision.datasets.ImageFolder('../data/cinic-10/trainval', transform=transform_train)
+        trainset = torchvision.datasets.ImageFolder('../data/cinic-10/train', transform=transform_train)
         hessian_loader = torch.utils.data.DataLoader(trainset, batch_size=hessian_batch_size, shuffle=True,
                                                      num_workers=32)
     elif dataset == 'imagenet':
         transform_train, transform_test = get_transforms(dataset)
         trainset = torchvision.datasets.ImageFolder('../data/imagenet12/train', transform=transform_train)
+        hessian_loader = torch.utils.data.DataLoader(trainset, batch_size=hessian_batch_size, shuffle=True,
+                                              num_workers=32)
+    elif dataset == 'tiny_imagenet':
+        transform_train, transform_test = get_transforms(dataset)
+        trainset = torchvision.datasets.ImageFolder('../data/tiny-imagenet-200/train', transform=transform_train)
         hessian_loader = torch.utils.data.DataLoader(trainset, batch_size=hessian_batch_size, shuffle=True,
                                               num_workers=32)
 
