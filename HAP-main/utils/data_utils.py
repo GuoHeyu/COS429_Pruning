@@ -107,7 +107,7 @@ def get_dataloader(dataset, train_batch_size, test_batch_size, num_workers=8, ro
 
     if dataset == 'cinic-10':
         trainset = torchvision.datasets.ImageFolder(root + '/cinic-10/train', transform=transform_train)
-        testset = torchvision.datasets.ImageFolder(root + '/cinic-10/val', transform=transform_test)
+        testset = torchvision.datasets.ImageFolder(root + '/cinic-10/valid', transform=transform_test)
 
     if dataset == 'tiny_imagenet':
         trainset = torchvision.datasets.ImageFolder(root + '/tiny-imagenet-200/train', transform=transform_train)
