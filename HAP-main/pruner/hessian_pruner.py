@@ -346,7 +346,7 @@ class HessianPruner:
 
             optimizer = optim.SGD(self.model.parameters(), lr=learning_rate, momentum=0.9, weight_decay=weight_decay)
             # optimizer = optim.Adam(self.model.parameters(), weight_decay=5e-4)
-            if self.config.dataset == "cifar10":
+            if self.config.dataset == "cifar10" or self.config.dataset == "cifar100":
                 lr_schedule = {0: learning_rate,
                             int(nepochs * 0.5): learning_rate * 0.1,
                             int(nepochs * 0.75): learning_rate * 0.01}
