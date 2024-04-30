@@ -12,7 +12,7 @@ from utils.network_utils import get_network
 from utils.data_utils import get_dataloader
 from utils.common_utils import PresetLRScheduler, makedirs
 
-from utils.compute_flops import print_model_param_flops, print_model_param_flops
+from utils.compute_flops import compute_model_param_flops
 
 import numpy as np
 
@@ -39,7 +39,7 @@ parser.add_argument('--decay_ratio', default=0.1, type=float)
 parser.add_argument('--device', default='cuda', type=str)
 parser.add_argument('--resume', '-r', default=None, type=str)
 parser.add_argument('--load_path', default='', type=str)
-parser.add_argument('--log_dir', default='cifar10_result/pretrain', type=str)
+parser.add_argument('--log_dir', default='../HAPresults/pretrain', type=str)
 args = parser.parse_args()
 
 # init model
@@ -88,11 +88,11 @@ makedirs(log_dir)
 writer = SummaryWriter(log_dir)
 
 if args.dataset == 'tiny_imagenet':
-    total_flops, rotation_flops = print_model_param_flops(net, 64, cuda=True)
+    total_flops, rotation_flops = compute_model_param_flops(net, 64, cuda=True)
 elif args.dataset == 'imagenet':
-    total_flops, rotation_flops = print_model_param_flops(net, 224, cuda=True)
+    total_flops, rotation_flops = compute_model_param_flops(net, 224, cuda=True)
 else:
-    total_flops, rotation_flops = print_model_param_flops(net, 32, cuda=True)
+    total_flops, rotation_flops = compute_model_param_flops(net, 32, cuda=True)
 num_params = count_parameters(net)
 print(f"Total Flops: {total_flops}")
 print(f"Total Params: {num_params}")
@@ -175,11 +175,11 @@ def test(epoch):
             'loss': loss,
             'args': args
         }
-        if not os.path.isdir(f'{args.log_dir}'):
-            os.mkdirs(f'{args.log_dir}')
+        if not os.path.isdir(f'{log_dir}'):
+            os.mkdirs(f'{log_dir}')
         # if not os.path.isdir('checkpoint/pretrain'):
             # os.mkdir('checkpoint/pretrain')
-        torch.save(state, f'{args.log_dir}/best.t7')
+        torch.save(state, f'{log_dir}/best.t7')
         best_acc = acc
 
 

@@ -379,7 +379,6 @@ if __name__ == '__main__':
     parser.add_argument('--network' , type=str, default='resnet_bottle', required=False)
     parser.add_argument('--depth', type=int, default=50, required=False)
     parser.add_argument('--dataset', type=str, default='imagenet', required=False)
-    parser.add_argument('--test_dataset', type=str, default='imagenet', required=False)
     parser.add_argument('--batch-size', type=int, default=64, required=False)
     parser.add_argument('--epoch', type=str, default='120', required=False)
     parser.add_argument('--learning-rate', type=str, default='1e-3', required=False)
@@ -422,7 +421,6 @@ if __name__ == '__main__':
     config.network              = args.network
     config.depth                = args.depth
     config.dataset              = args.dataset
-    config.test_dataset         = args.test_dataset
     config.batch_size           = args.batch_size
     config.epoch                = args.epoch
     config.learning_rate        = args.learning_rate
@@ -432,9 +430,9 @@ if __name__ == '__main__':
     config.fisher_type          = args.fisher_type
     config.fix_layers           = args.fix_layers
 
-    config.load_checkpoint      = "../../HAPresults/checkpoint/pretrain/"
-    config.load_checkpoint      += f"{args.dataset}_{args.network}{args.depth}_best.t7"
-    config.checkpoint           =  f"../HAPresults/{args.dataset}_{args.test_dataset}_result/{args.network}{args.depth}/"
+    config.load_checkpoint      = "../HAPresults/pretrain/"
+    config.load_checkpoint      += f"{args.dataset}_{args.network}{args.depth}/best.t7"
+    config.checkpoint           =  f"../HAPresults/pruning/{args.dataset}_{args.network}{args.depth}_result/"
     config.checkpoint           += f"pr_{args.ratio}_nir_{args.ni_ratio}/"
 
     config.pruner               = args.pruner
