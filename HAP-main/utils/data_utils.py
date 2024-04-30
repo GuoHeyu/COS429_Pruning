@@ -94,7 +94,7 @@ def get_transforms(dataset):
     return transform_train, transform_test
 
 
-def get_dataloader(dataset, train_batch_size, test_batch_size, num_workers=8, root='../data', returnset=False):
+def get_dataloader(dataset, train_batch_size, test_batch_size, num_workers=16, root='../data', returnset=False):
     transform_train, transform_test = get_transforms(dataset)
     trainset, testset = None, None
     if dataset == 'cifar10':
@@ -149,17 +149,17 @@ def get_hessianloader(dataset, hessian_batch_size):
         transform_train, transform_test = get_transforms(dataset)
         trainset = torchvision.datasets.ImageFolder('../data/cinic-10/train', transform=transform_train)
         hessian_loader = torch.utils.data.DataLoader(trainset, batch_size=hessian_batch_size, shuffle=True,
-                                                     num_workers=32)
+                                                     num_workers=16)
     elif dataset == 'imagenet':
         transform_train, transform_test = get_transforms(dataset)
         trainset = torchvision.datasets.ImageFolder('../data/imagenet12/train', transform=transform_train)
         hessian_loader = torch.utils.data.DataLoader(trainset, batch_size=hessian_batch_size, shuffle=True,
-                                              num_workers=32)
+                                              num_workers=16)
     elif dataset == 'tiny_imagenet':
         transform_train, transform_test = get_transforms(dataset)
         trainset = torchvision.datasets.ImageFolder('../data/tiny-imagenet-200/train', transform=transform_train)
         hessian_loader = torch.utils.data.DataLoader(trainset, batch_size=hessian_batch_size, shuffle=True,
-                                              num_workers=32)
+                                              num_workers=16)
 
     else:
             raise ValueError("No valid dataset is given.")
