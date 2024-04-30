@@ -115,18 +115,7 @@ def init_network(config, logger, device, imagenet=True):
 
 
 def init_pruner(net, bottleneck_net, config, writer, logger):
-    if config.fisher_mode == 'eigen':
-        pruner = KFACEigenPruner(net,
-                                 bottleneck_net,
-                                 config,
-                                 writer,
-                                 logger,
-                                 config.prune_ratio_limit,
-                                 batch_averaged=True,
-                                 use_patch=config.get('use_patch', True),
-                                 fix_layers=config.fix_layers,
-                                 fix_rotation=config.fix_rotation)
-    elif config.fisher_mode == 'hessian':
+    if config.fisher_mode == 'hessian':
         pruner = HessianPruner(net,
                                VGG,
                                config,
