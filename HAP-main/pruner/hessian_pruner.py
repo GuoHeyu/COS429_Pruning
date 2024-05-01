@@ -110,7 +110,7 @@ class HessianPruner:
                     else:
                         m.requires_grad = False
 
-                trace_dir = f"../HAPresults/{self.config.dataset}_result/{self.config.network}{self.config.depth}/tract.npy"
+                trace_dir = f"../HAPresults/pruning/{self.config.dataset}_{self.config.network}{self.config.depth}_result/tract.npy"
                 print(trace_dir)
                 if os.path.exists(trace_dir):
                     print(f"Loading trace from {trace_dir}")
