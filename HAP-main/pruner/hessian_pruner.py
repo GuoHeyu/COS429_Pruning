@@ -117,7 +117,9 @@ class HessianPruner:
                     results = np.load(trace_dir, allow_pickle=True)
                 else:
                     results = get_trace_hut(self.model, dataloader, criterion, n_v=n_v, loader=is_loader, channelwise=True, layerwise=False)
-                    np.save(trace_dir, results)
+                    object_array = np.empty(len(results), dtype=object)
+                    object_array[:] = results
+                    np.save(trace_dir, object_array)
 
 
                 for m in self.model.parameters():
