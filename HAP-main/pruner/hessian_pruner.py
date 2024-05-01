@@ -110,17 +110,20 @@ class HessianPruner:
                     else:
                         m.requires_grad = False
 
-                trace_dir = f"../HAPresults/pruning/{self.config.dataset}_{self.config.network}{self.config.depth}_result/tract.npy"
-                print(trace_dir)
-                if os.path.exists(trace_dir):
-                    print(f"Loading trace from {trace_dir}")
-                    results = np.load(trace_dir, allow_pickle=True)
-                else:
-                    results = get_trace_hut(self.model, dataloader, criterion, n_v=n_v, loader=is_loader, channelwise=True, layerwise=False)
-                    object_array = np.empty(len(results), dtype=object)
-                    object_array[:] = results
-                    np.save(trace_dir, object_array)
+                # trace_dir = f"../HAPresults/pruning/{self.config.dataset}_{self.config.network}{self.config.depth}_result/tract.npy"
+                # print(trace_dir)
+                # if os.path.exists(trace_dir):
+                #     print(f"Loading trace from {trace_dir}")
+                #     results = np.load(trace_dir, allow_pickle=True)
+                # else:
+                #     results = get_trace_hut(self.model, dataloader, criterion, n_v=n_v, loader=is_loader, channelwise=True, layerwise=False)
+                #     object_array = np.empty(len(results), dtype=object)
+                #     object_array[:] = results
+                #     np.save(trace_dir, object_array)
 
+                # Modified
+                results = get_trace_hut(self.model, dataloader, criterion, n_v=n_v, loader=is_loader, channelwise=True,
+                                        layerwise=False)
 
                 for m in self.model.parameters():
                     m.requires_grad = True
