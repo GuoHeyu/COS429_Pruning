@@ -422,7 +422,7 @@ if __name__ == '__main__':
     config.load_checkpoint      = "../HAPresults/pretrain/"
     config.load_checkpoint      += f"{args.dataset}_{args.network}{args.depth}/best.t7"
     config.checkpoint           =  f"../HAPresults/pruning/{args.dataset}_{args.network}{args.depth}_result/"
-    config.checkpoint           += f"pr_{args.ratio}_nir_{args.ni_ratio}/"
+    config.checkpoint           += f"pr_{args.ratio}_nir_{args.ni_ratio}_{args.hessian_mode}/"
 
     config.pruner               = args.pruner
     config.prune_mode           = args.prune_mode
